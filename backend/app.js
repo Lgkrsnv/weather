@@ -2,6 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 const logger = require('morgan');
 const path = require('path');
+// const fetch = require('node-fetch');
 
 
 const indexRouter = require('./routes/index');
@@ -16,8 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/', indexRouter);
-
+app.use('/api/v1/', indexRouter);
 
 app.use((req, res, next) => {
   const error = createError(404, 'Запрашиваемой страницы не существует на сервере.');
