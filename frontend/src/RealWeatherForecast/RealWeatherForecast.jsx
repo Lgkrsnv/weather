@@ -1,12 +1,13 @@
-export const RealWeatherForecast = ({realWeather}) => {
-
+export const RealWeatherForecast = ({realWeather, amountData}) => {
+  const weatherArr = realWeather?.weather.list.slice(0, amountData)
   return (
     <>
     <p>{realWeather?.weather.city.name}</p>
-
-    {realWeather?.weather.list.map(item => {
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+    {console.log(weatherArr)}
+    {weatherArr && weatherArr.map(item => {
       console.log(item.main.temp);
-      return <div>
+      return <div style={{marginRight: '30px'}}>
         <p>Humidity: {item.dt_txt}</p>
         <p>Tempreture: {item.main.temp}</p>
         <p>Feels like: {item.main.feels_like}</p>
@@ -15,6 +16,7 @@ export const RealWeatherForecast = ({realWeather}) => {
         <hr />
         </div> })}
     
+    </div>
     </>
   )
 } 
