@@ -2,6 +2,7 @@ const express = require('express');
 const createError = require('http-errors');
 const logger = require('morgan');
 const path = require('path');
+const cors = require("cors")
 // const fetch = require('node-fetch');
 
 
@@ -10,7 +11,7 @@ const indexRouter = require('./routes/index');
 const { model } = require('mongoose');
 
 const app = express();
-
+// app.use(cors());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 

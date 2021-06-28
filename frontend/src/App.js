@@ -1,7 +1,8 @@
 import { WeatherList } from "./WeatherList/WeatherIList";
 import { DayInfo } from "./DayInfo/DayInfo";
+import { RealWeatherForecast } from "./RealWeatherForecast/RealWeatherForecast";
 import { FindCity } from "./FindCity/FindCity";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const weatherData = [
   {
@@ -77,16 +78,31 @@ const weatherData = [
 ];
 
 function App() {
+
   const [currentDay, setCurrentDay] = useState(weatherData[1]);
   const [currentCity, setCurrentCity] = useState("Moscow");
+  console.log('currrrrent', currentCity);
+  const [realWeather, setRealWeather] = useState();
   let weatherDataCity = weatherData.filter(day => day.city === currentCity);
   if (weatherDataCity.length === 0) weatherDataCity = weatherData.filter(day => day.city === "Moscow");
+
+  useEffect(() => {
+    async function getWeather (){
+      console.log('useeff citu', currentCity);
+      const resp = await fetch(`/api/v1/${currentCity}`);
+      const result = await resp.json();
+      setRealWeather(result)
+    }
+    getWeather();
+  }, [currentCity])
+
   return (
     <div className="App">
       <p>{currentCity}</p>
       <FindCity currentCity={currentCity} setCurrentCity={setCurrentCity} />
       <WeatherList weatherDataCity={weatherDataCity} setCurrentDay={setCurrentDay} />
       <DayInfo currentDay={currentDay} />
+      <RealWeatherForecast realWeather={realWeather}/>
     </div>
   );
 }
