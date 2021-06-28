@@ -81,6 +81,7 @@ function App() {
 
   const [currentDay, setCurrentDay] = useState(weatherData[1]);
   const [currentCity, setCurrentCity] = useState("Moscow");
+  const [amountData, setAmountData] = useState(3);
   console.log('currrrrent', currentCity);
   const [realWeather, setRealWeather] = useState();
   let weatherDataCity = weatherData.filter(day => day.city === currentCity);
@@ -99,10 +100,10 @@ function App() {
   return (
     <div className="App">
       <p>{currentCity}</p>
-      <FindCity currentCity={currentCity} setCurrentCity={setCurrentCity} />
-      <WeatherList weatherDataCity={weatherDataCity} setCurrentDay={setCurrentDay} />
+      <FindCity currentCity={currentCity} setCurrentCity={setCurrentCity} setAmountData={setAmountData}/>
+      <WeatherList weatherDataCity={weatherDataCity} setCurrentDay={setCurrentDay} setAmountData={setAmountData}/>
       <DayInfo currentDay={currentDay} />
-      <RealWeatherForecast realWeather={realWeather}/>
+      <RealWeatherForecast realWeather={realWeather} amountData={amountData}/>
     </div>
   );
 }
