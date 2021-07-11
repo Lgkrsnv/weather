@@ -3,7 +3,17 @@ import { DayInfo } from "./DayInfo/DayInfo";
 import { RealWeatherForecast } from "./RealWeatherForecast/RealWeatherForecast";
 import { FindCity } from "./FindCity/FindCity";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  align-items: center;
+  height: 80vh;
+  background-color: lightyellow;
+`;
 // const weatherData = [
 //   {
 //     id: 1,
@@ -78,33 +88,42 @@ import { useState, useEffect } from "react";
 // ];
 
 function App() {
-
   const [currentCity, setCurrentCity] = useState("Moscow");
   const [amountData, setAmountData] = useState(3);
   const [currentDay, setCurrentDay] = useState();
   const [realWeather, setRealWeather] = useState();
-  
+
   // let weatherDataCity = weatherData.filter(day => day.city === currentCity);
   // if (weatherDataCity.length === 0) weatherDataCity = weatherData.filter(day => day.city === "Moscow");
 
   useEffect(() => {
-    async function getWeather (){
+    async function getWeather() {
       const resp = await fetch(`/api/v1/${currentCity}`);
       const result = await resp.json();
-      setRealWeather(()=>result)
-      setCurrentDay(result.weather.list[0])
+      setRealWeather(() => result);
+      setCurrentDay(result.weather.list[0]);
     }
     getWeather();
-  }, [currentCity])
-  console.log(realWeather, '1 use');
+  }, [currentCity]);
+  console.log(realWeather, "1 use");
 
   return (
-    <div className="App">
-      <FindCity currentCity={currentCity} setCurrentCity={setCurrentCity} setAmountData={setAmountData}/>
+    <Container>
+      <FindCity
+        currentCity={currentCity}
+        setCurrentCity={setCurrentCity}
+        setAmountData={setAmountData}
+      />
+      <h3>Weather in {realWeather?.weather.city.name}</h3>
       {/* <WeatherList weatherDataCity={weatherDataCity} setCurrentDay={setCurrentDay} setAmountData={setAmountData}/> */}
       <DayInfo currentDay={currentDay} />
-      <RealWeatherForecast realWeather={realWeather} amountData={amountData} setCurrentDay={setCurrentDay}/>
-    </div>
+      <RealWeatherForecast
+        realWeather={realWeather}
+        amountData={amountData}
+        setCurrentDay={setCurrentDay}
+      />
+      
+    </Container>
   );
 }
 
