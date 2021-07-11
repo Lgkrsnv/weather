@@ -8,16 +8,13 @@ export const RealWeatherForecast = ({
   const [from, setFrom] = useState(0);
   console.log(amountData, 'amountData');
   // const [weatherArr, setWeatherArr] = useState(() => {
-  //   // return
+
   //   return realWeather?.weather.list.slice(from, amountData + from)
 
   // });
   let weatherArr = realWeather
     ? realWeather.weather.list.slice(from, amountData + from)
     : null;
-    console.log(realWeather?.weather.list.slice(from, amountData + from), from, amountData, amountData + from);
-  console.log(weatherArr, "000");
-
   // const handleDaysToShow = () => {
   //   if (realWeather?.weather.list[from + amountData]) {
   //     setFrom(()=>from + amountData)
