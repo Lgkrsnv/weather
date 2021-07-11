@@ -83,6 +83,7 @@ function App() {
   const [amountData, setAmountData] = useState(3);
   const [currentDay, setCurrentDay] = useState();
   const [realWeather, setRealWeather] = useState();
+  
   // let weatherDataCity = weatherData.filter(day => day.city === currentCity);
   // if (weatherDataCity.length === 0) weatherDataCity = weatherData.filter(day => day.city === "Moscow");
 
@@ -91,11 +92,11 @@ function App() {
       const resp = await fetch(`/api/v1/${currentCity}`);
       const result = await resp.json();
       setRealWeather(()=>result)
-      console.log(result, 'resultresultresultresult');
       setCurrentDay(result.weather.list[0])
     }
     getWeather();
   }, [currentCity])
+  console.log(realWeather, '1 use');
 
   return (
     <div className="App">
