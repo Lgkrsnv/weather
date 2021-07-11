@@ -10,8 +10,7 @@ export const FindCity = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.setCurrentCity(input);
-    // console.log(select, props.setAmountData);
-    props.setAmountData(select)
+    props.setAmountData(Number(select))
   };
   
   return (

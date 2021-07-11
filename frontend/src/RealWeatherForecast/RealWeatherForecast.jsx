@@ -1,15 +1,43 @@
-export const RealWeatherForecast = ({ realWeather, amountData, setCurrentDay }) => {
+import { useState } from "react";
 
-  const weatherArr = realWeather?.weather.list?.slice(0, amountData);
+export const RealWeatherForecast = ({
+  realWeather,
+  amountData,
+  setCurrentDay,
+}) => {
+  const [from, setFrom] = useState(0);
+  console.log(amountData, 'amountData');
+  // const [weatherArr, setWeatherArr] = useState(() => {
+
+  //   return realWeather?.weather.list.slice(from, amountData + from)
+
+  // });
+  let weatherArr = realWeather
+    ? realWeather.weather.list.slice(from, amountData + from)
+    : null;
+  // const handleDaysToShow = () => {
+  //   if (realWeather?.weather.list[from + amountData]) {
+  //     setFrom(()=>from + amountData)
+  //     // setWeatherArr(()=>realWeather?.weather.list?.slice(from, amountData+from))
+  //   }
+  // }
   return (
     <>
       <p>Weather in {realWeather?.weather.city.name}</p>
-
+      {console.log(amountData, 'amountData return')}
+ 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <button onClick={()=>{
+          if (realWeather?.weather.list[from - amountData])
+          setFrom(from-amountData)}}>{"<"}--</button>
+        {console.log(weatherArr, "unde wArr")}
         {weatherArr &&
           weatherArr.map((item) => {
             return (
-              <div style={{ marginRight: "30px" }} onClick={()=>setCurrentDay(item)}>
+              <div
+                style={{ marginRight: "30px" }}
+                onClick={() => setCurrentDay(item)}
+              >
                 <p>Humidity: {item.dt_txt}</p>
                 <p>Tempreture: {item.main.temp}</p>
                 <p>Feels like: {item.main.feels_like}</p>
@@ -19,6 +47,15 @@ export const RealWeatherForecast = ({ realWeather, amountData, setCurrentDay }) 
               </div>
             );
           })}
+        <button
+         
+         onClick={()=> {
+           if (realWeather?.weather.list[from + amountData]) {
+             setFrom(from+amountData )}}
+           }
+        >
+          <span>---{">"}</span>
+        </button>
       </div>
     </>
   );
