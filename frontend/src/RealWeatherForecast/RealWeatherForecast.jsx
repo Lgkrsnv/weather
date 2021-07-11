@@ -73,7 +73,6 @@ export const RealWeatherForecast = ({
             );
           })}
         <Button
-        right
           onClick={() => {
             if (realWeather?.weather.list[from + amountData]) {
               setFrom(from + amountData);
